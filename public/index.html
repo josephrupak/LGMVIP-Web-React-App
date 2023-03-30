@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equip="x-ua-compatible" content="ie=edge">
+    <title>react-app</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo-text">
+        <img src="letsgrowmore-logo.jpg" alt="logo" width="200px" height="" class="wdn-stretch rounded-cotners"></div>
+        <button class="cta" id="nav-btn"href="#">Get Users</button>
+    </header>
+    <center>
+        <section class="cards" id="cards"></section>
+    </center>
+    <script>
+      let box = document.getElementById("cards");
+
+  let API = async () => {
+  let response = await fetch("https://reqres.in/api/users?page=1");
+  let file = await response.json();
+  let info = file.data
+    .map((element) => {
+      return `<div class="card">
+        <div class="card-image">
+            <img src="bg.jpg" alt="">
+        </div>
+        <div class="profile-image">
+            <img src="${element.avatar}" alt="">
+        </div>
+        <div class="card-content">
+            <h3>${element.first_name} ${element.last_name}</h3>
+            <h2>${element.email}</h2>
+            <h2>User ID: ${element.id}</h2>
+        </div>
+    </div>`;
+    })
+    .join("");
+  cards.innerHTML = info;
+};
+
+let navBtn = document.getElementById("nav-btn");
+navBtn.addEventListener("click", () => {
+  cards.innerHTML = `<h1 class='load'>Scanning Users Data ........</h1>`;
+  setTimeout(() => {
+    API();
+  }, 3000);
+});
+    
+  </script>
+</body>
+</html>
